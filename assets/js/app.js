@@ -124,7 +124,7 @@ yText
   .attr("data-name", "obesity")
   .attr("data-axis", "y")
   .attr("class", "aText active y")
-  .text("Obese (%)");
+  .text("Percent Obese");
 
 // 2. Smokes
 yText
@@ -133,7 +133,7 @@ yText
   .attr("data-name", "smokes")
   .attr("data-axis", "y")
   .attr("class", "aText inactive y")
-  .text("Smokes (%)");
+  .text("Percent Smokers");
 
 // 3. Lacks Healthcare
 yText
@@ -150,7 +150,7 @@ yText
 // Import CSV data with .csv import method.
 d3.csv("assets/data/data.csv").then(function(data) {
   // Visualize the data
-  visualize(data);
+  visualize(thedata);
 });
 
 // 3. Create  visualization function
@@ -159,14 +159,13 @@ d3.csv("assets/data/data.csv").then(function(data) {
 function visualize(theData) {
   // PART 1: Essential Local Variables and Functions
   // =================================
-  // curX and curY will determine what data gets represented in each axis.
-  // We designate our defaults here, which carry the same names
-  // as the headings in their matching .csv data file.
+  // Designate defaults here -- Use same names as the headings in their matching .csv data file.
+  
   var curX = "poverty";
   var curY = "obesity";
 
-  // We also save empty variables for our the min and max values of x and y.
-  // this will allow us to alter the values in functions and remove repetitious code.
+  // Save empty variables for min and max values of x and y.
+  
   var xMin;
   var xMax;
   var yMin;
@@ -204,10 +203,8 @@ function visualize(theData) {
   // Call the toolTip function.
   svg.call(toolTip);
 
-  // PART 2: D.R.Y!
-  // ==============
-  // These functions remove some repitition from later code.
-  // This will be more obvious in parts 3 and 4.
+  
+  // These functions remove some repitition.
 
   // a. change the min and max for x
   function xMinMax() {
@@ -249,7 +246,7 @@ function visualize(theData) {
     clickedText.classed("inactive", false).classed("active", true);
   }
 
-  // Part 3: Instantiate the Scatter Plot
+  // Part 3: Set up the Scatter Plot
   // ====================================
   // Add first placement of data and axes to the scatter plot.
 
@@ -258,7 +255,7 @@ function visualize(theData) {
   yMinMax();
 
   // create  scales.
-  // places circles in an area starting after the margin and word area.
+  // place circles in an area starting after the margin and word area.
 
   var xScale = d3
     .scaleLinear()
@@ -270,7 +267,7 @@ function visualize(theData) {
     // Height is inverses due to how d3 calc's y-axis placement
     .range([height - margin - labelArea, margin]);
 
-  // We pass the scales into the axis methods to create the axes.
+  // Pass the scales into the axis methods to create the axes.
   // Note: D3 4.0 made this a lot less cumbersome then before. Kudos to mbostock.
   var xAxis = d3.axisBottom(xScale);
   var yAxis = d3.axisLeft(yScale);
@@ -334,9 +331,8 @@ function visualize(theData) {
       d3.select(this).style("stroke", "#e3e3e3");
     });
 
-  // With the circles on our graph, we need matching labels.
-  // Let's grab the state abbreviations from our data
-  // and place them in the center of our dots.
+  //Place state abbreviationsthem in the center of the dots.
+  
   theCircles
     .append("text")
     // We return the abbreviation to .text, which makes the text the abbreviation.
@@ -369,7 +365,7 @@ function visualize(theData) {
       d3.select("." + d.abbr).style("stroke", "#e3e3e3");
     });
 
-  // Part 4: Make the Graph Dynamic
+  // Make the Graph Dynamic
   // ==========================
   // Allow the user to click on any label and display the data it references.
 
