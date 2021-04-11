@@ -150,7 +150,7 @@ yText
 // Import CSV data with .csv import method.
 d3.csv("assets/data/data.csv").then(function(data) {
   // Visualize the data
-  visualize(thedata);
+  visualize(data);
 });
 
 // 3. Create  visualization function
